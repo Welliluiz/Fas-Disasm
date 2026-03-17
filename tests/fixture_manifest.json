@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "path": "example/3darray.fas",
+      "sha256": "5444304409b0ea8fa2ebd3a8268322f0a6a816eaa341802265b7792d475f3f26"
+    },
+    {
+      "path": "example/3darray.fas.txt",
+      "sha256": "2211c7687390049cbb50f071f4af29f08345eb8ca39c35b7463f9317d9808787"
+    },
+    {
+      "path": "example/3darray.fas_.lsp",
+      "sha256": "b4822383b33ec8f14b3d1af23e8d7d423f68034e8bc26e20c055bedbdd79894c"
+    },
+    {
+      "path": "example/defun/defun_test.fas",
+      "sha256": "4ab001914d3b5988e93b4f9ae1500a8c63cef567db0803fc1dc4e859caa38f38"
+    },
+    {
+      "path": "example/defun/defun_test.fas_.lsp",
+      "sha256": "62b5cde8a0cc17f372a00e5cdd49c6460e225c5ae643083b877ae87915647e60"
+    },
+    {
+      "path": "example/AutoCAD PROTECTED LISP file/3darray_ENC.lsp",
+      "sha256": "e73a4dd626385e122f16d3c696c696415713188d8059b64ea116accb43de9368"
+    },
+    {
+      "path": "example/AutoCAD PROTECTED LISP file/3darray_ENC_Dec.lsp",
+      "sha256": "0ea08cf2092749e67b78123b5f8c21a39cc36d51450a0869b50309ab5ba44b33"
+    }
+  ]
+}

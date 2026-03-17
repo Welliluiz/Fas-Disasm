@@ -2,6 +2,7 @@ Attribute VB_Name = "mod_Log"
 Option Explicit
 Public Filename$
 Public FileLog_Name
+Private m_FileLogOpen As Boolean
 
 ' length of txt log columns
 Const TXTOUT_OPCODE_COL = 24
@@ -129,21 +130,35 @@ Public Sub Output_GetLineBreaks(DisASM, LineBreaksCount)
 End Sub
 
 Public Sub FileLog_open()
-   On Error Resume Next
+   On Error GoTo FileLog_open_err
 
    FileLog_close
 
    FileLog_Name = Filename & ".txt"
    Open FileLog_Name For Output As 1
+   m_FileLogOpen = True
+   Exit Sub
+
+FileLog_open_err:
+   m_FileLogOpen = False
+   Debug.Print "FileLog_open failed: "; Err.Description
 End Sub
 
 Public Sub FileLog_Add(TextLine$)
-   On Error Resume Next
+   On Error GoTo FileLog_Add_err
+
+   If Not m_FileLogOpen Then Exit Sub
 
    Print #1, TextLine
+   Exit Sub
+
+FileLog_Add_err:
+   Debug.Print "FileLog_Add failed: "; Err.Description
 End Sub
 Public Sub FileLog_close()
-   On Error Resume Next
+   On Error GoTo FileLog_close_err
+
+   If Not m_FileLogOpen Then Exit Sub
 
 'if you stop here you'd
 'proably enabled stop
@@ -151,14 +166,24 @@ Public Sub FileLog_close()
    Dim isEmptyFile As Boolean
    isEmptyFile = LOF(1) = 0
    Close #1
+   m_FileLogOpen = False
    
-   If isEmptyFile Then _
+   If isEmptyFile Then
+      On Error Resume Next
       Kill FileLog_Name
+      On Error GoTo FileLog_close_err
+   End If
    
+   Exit Sub
+
+FileLog_close_err:
+   m_FileLogOpen = False
+   Debug.Print "FileLog_close failed: "; Err.Description
 End Sub
 
 
 Public Sub SaveDecompiled()
+   On Error GoTo SaveDecompiled_err
 
    Dim lsp_Filename
    lsp_Filename = Filename & "_.lsp"
@@ -166,10 +191,12 @@ Public Sub SaveDecompiled()
    Const ERR_FileNotFound = 53
    On Error Resume Next
    Kill lsp_Filename
-   If Err And (Err <> ERR_FileNotFound) Then _
+   On Error GoTo SaveDecompiled_err
+   If (Err <> 0) And (Err <> ERR_FileNotFound) Then _
       FrmMain.AddtoLog _
          "Can't delete " & lsp_Filename & _
          " ERR:" & Err.Description
+   Err.Clear
 
    
    Open lsp_Filename For Output Shared As 2
@@ -180,5 +207,8 @@ Public Sub SaveDecompiled()
    Next
    Close #2
 
-End Sub
+   Exit Sub
 
+SaveDecompiled_err:
+   Debug.Print "SaveDecompiled failed: "; Err.Description
+End Sub

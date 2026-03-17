@@ -8,3 +8,9 @@ example/defun/defun_test.fas_.lsp-
 example/defun/defun_test.fas.fct
 example/defun/defun_test.fas.res
 *.exe
+__pycache__/
+*.pyc
+example/*_out/
+example/_vlx/test/
+*duall*
+*office*

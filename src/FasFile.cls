@@ -1994,7 +1994,6 @@ On Error GoTo InterpretStream_rek_err
                   Else
                      PushThis = TokenFull(DefunName, Expression)
                   End If
-                  asd
                   If b_0_IsWhatever = False Then 'Not CBool(m_MVar)
                      Debug.Print "b_0_IsWhatever: ", PushThis
                   End If
@@ -2921,7 +2920,6 @@ Select Case Err
       #End If
       
             'Dim retval&
-asd
             retval = MsgBox(Errmsg & vbCrLf & _
                                "Start Debugging? (Cancel to stop at all / No to Continue)", _
                                vbExclamation + vbYesNoCancel + defaultButton)

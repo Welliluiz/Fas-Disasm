@@ -387,7 +387,7 @@ Private Declare Function PostMessage Lib "user32.dll" Alias "PostMessageA" (ByVa
 Public break As Boolean
 
 Private nav_PositionHistory As New Stack
-Private nav_TopStack As New Stack
+Private nav_TopStack As Long
 
 
 
@@ -452,7 +452,6 @@ Private Sub StartWork()
 
          
        ' Start Decompiling...
-         On Error Resume Next
          File.create Filename
 
       End If
@@ -788,7 +787,6 @@ Private Sub File_InterpretingProgress(FasCmdlineObj As FasCommando)
       Listview_OutputLine Out, LineBreaksCount, FasCmdlineObj
    End If
    
-   asd
    
 End Sub
 

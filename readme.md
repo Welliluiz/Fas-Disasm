@@ -118,3 +118,57 @@ http://files.planet-dl.org/cw2k/Fas%20AutoLisp-Decompiler/fas-format.htm
 0.3..0.1
   * internal alpha-version 
    (based on AutoLisp Resource Decrypter V0.9)
+
+## Automated Regression Tests
+
+A minimal test environment is included under `tests/` and can run on Linux/macOS without VB6.
+
+Run:
+
+```bash
+./scripts/run_tests.sh
+```
+
+What is covered:
+- Fixture integrity checks with SHA-256 for key files in `example/`
+- Optional Wine integration smoke test (`tests/test_wine_integration.py`)
+
+To run the optional integration test:
+
+```bash
+FAS_DISASM_RUN_WINE=1 ./scripts/run_tests.sh
+```
+
+Notes:
+- The Wine test is skipped automatically when `wine` is not installed.
+- Integration test validates generated artifacts (`*.fas.txt`, `*.fas_.lsp`) instead of exit code.
+
+## Minimal CLI
+
+`fasdisasm_min.py` is a non-UI fallback that does not depend on VB6 or OCX controls.
+
+Supported now:
+- decrypt `AutoCAD PROTECTED LISP file` into `*_Dec.lsp`
+- split `VLX` containers into a directory beside the input file
+- extract decrypted `FAS/FSL` streams into `.fct`, `.res` and `.metadata.json`
+
+Still missing:
+- full `FAS/FSL` interpretation and decompilation into `*.txt` and `*_.lsp`
+
+Examples:
+
+```bash
+python3 fasdisasm_min.py "example/AutoCAD PROTECTED LISP file/3darray_ENC.lsp"
+python3 fasdisasm_min.py example/_vlx/test.VLX
+python3 fasdisasm_min.py example/3darray.fas
+python3 fasdisasm_min.py example/vlinit.fsl
+```
+
+Windows PowerShell:
+
+```powershell
+py .\fasdisasm_min.py ".\example\AutoCAD PROTECTED LISP file\3darray_ENC.lsp"
+py .\fasdisasm_min.py .\example\_vlx\test.VLX
+py .\fasdisasm_min.py .\example\3darray.fas
+py .\fasdisasm_min.py .\example\vlinit.fsl
+```
